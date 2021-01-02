@@ -15,9 +15,7 @@ exec ros -Q -- $0 "$@"
 (defun main (&rest argv)
   (let ((mode (or (first argv) "tcp")))
     (cond ((equal mode "tcp")
-           #+quicklisp
            (ql:quickload "jsonrpc/transport/tcp" :silent t)
-           #-quicklisp
            (let ((port (second argv)))
              (if port
                  (bt:make-thread (lambda () (cl-lsp/main:run-tcp-mode :port (parse-integer port))))
